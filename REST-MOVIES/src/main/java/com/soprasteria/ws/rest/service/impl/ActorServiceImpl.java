@@ -28,6 +28,9 @@ public class ActorServiceImpl implements ActorService {
 			ActorEntity actorEntity = dao.findById(id).get();
 
 			ActorResponse response = ActorBuilderObject.buildResponse(actorEntity);
+			
+			
+			
 			return response;
 		} else {
 			throw new OrderNotFoundException();

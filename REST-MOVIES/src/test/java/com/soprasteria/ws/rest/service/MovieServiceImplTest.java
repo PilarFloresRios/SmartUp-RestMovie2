@@ -16,7 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import com.soprasteria.ws.rest.builder.MovieBuilder;
+import com.soprasteria.ws.rest.builder.concrete.MovieBuilderObject;
 import com.soprasteria.ws.rest.createObject.MovieObject;
 import com.soprasteria.ws.rest.dao.MovieDAO;
 import com.soprasteria.ws.rest.entity.MovieEntity;
@@ -37,12 +37,12 @@ public class MovieServiceImplTest {
 	private MovieDAO movieDAO;
 	
 	@Mock 
-	private MovieBuilder builder;
+	private MovieBuilderObject builder;
 
 	@Before
 	public void setUp() throws Exception {
 
-		movieService = new MovieServiceImpl(movieDAO, builder);
+		movieService = new MovieServiceImpl(movieDAO);
 
 	}
 
@@ -64,7 +64,9 @@ public class MovieServiceImplTest {
 		when(movieDAO.findById(id)).thenReturn(Optional.of(dto));
 
 		MovieResponseFull movieResponse = MovieObject.createMovieResponseFull(id);
-		when(builder.toMovieResponseFull(dto)).thenReturn(movieResponse);
+//		when(builder.toMovieResponseFull(dto)).thenReturn(movieResponse);
+		
+		when(builder.buildResponseFull(dto)).thenReturn(movieResponse);
 
 		MovieResponseFull actual = movieService.getMovieId(id);
 
@@ -91,7 +93,7 @@ public class MovieServiceImplTest {
 		MovieResponse movieR1 = MovieObject.createMovieResponse(id);
 		listExpected.add(movieR1);
 
-		when(builder.toMovieResponse(movie1)).thenReturn(movieR1);
+//		when(builder.toMovieResponse(movie1)).thenReturn(movieR1);
 
 		List<MovieResponse> listActual = movieService.getMovieList();
 
@@ -118,7 +120,7 @@ public class MovieServiceImplTest {
 		when(movieDAO.findMovieDTOByTitle(movieToSave.getTitle())).thenReturn(Optional.empty());
 
 		MovieEntity movieEntity = MovieObject.createMovieEntity(id);
-		when(builder.toMovieEntity(movieToSave)).thenReturn(movieEntity);
+//		when(builder.toMovieEntity(movieToSave)).thenReturn(movieEntity);
 //		MovieEntity movieEntity = MovieObject.convertMovieRequestToEntity(1L, movieToSave);
 
 		MovieEntity movieEntitySaved = MovieObject.createMovieEntity(1L);
@@ -127,7 +129,7 @@ public class MovieServiceImplTest {
 //		MovieResponseFull movieResponseFull = MovieObject.convertEntityToResponseFull(1L, movieEntitySaved);
 
 		MovieResponseFull movieResponse = MovieObject.createMovieResponseFull(id);
-		when(builder.toMovieResponseFull(movieEntitySaved)).thenReturn(movieResponse);
+//		when(builder.toMovieResponseFull(movieEntitySaved)).thenReturn(movieResponse);
 		
 		MovieResponseFull actual = movieService.save(movieToSave);
 
@@ -145,7 +147,7 @@ public class MovieServiceImplTest {
 		when(movieDAO.findMovieDTOByTitle(titleIn)).thenReturn(Optional.of(dto));
 		
 		MovieResponseFull movieResponseFull = MovieObject.createMovieResponseFull(id);
-		when(builder.toMovieResponseFull(dto)).thenReturn(movieResponseFull);
+//		when(builder.toMovieResponseFull(dto)).thenReturn(movieResponseFull);
 
 
 		MovieResponseFull actual = movieService.getMovieByTitle(titleIn);

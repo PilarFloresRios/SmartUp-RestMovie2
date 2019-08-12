@@ -1,6 +1,11 @@
 package com.soprasteria.ws.rest.builder.concrete;
 
+import java.util.List;
+import java.util.Set;
+
+import com.soprasteria.ws.rest.entity.ActorEntity;
 import com.soprasteria.ws.rest.entity.MovieEntity;
+import com.soprasteria.ws.rest.request.movie.MovieRequest;
 import com.soprasteria.ws.rest.response.movie.MovieResponse;
 import com.soprasteria.ws.rest.response.movie.MovieResponseFull;
 
@@ -14,57 +19,94 @@ public class MovieBuilderObject {
 
 	private int year;
 
-	private String actors[];
+	private List<ActorEntity> actors;
 
-	
-	
-	
-	
-	public MovieBuilderObject(Long id, String title, String genre, int year, String[] actors) {
-		super();
+	public MovieBuilderObject setId(Long id) {
 		this.id = id;
+		return this;
+	}
+
+	public MovieBuilderObject setTitle(String title) {
 		this.title = title;
+		return this;
+
+	}
+
+	public MovieBuilderObject setGenre(String genre) {
 		this.genre = genre;
+		return this;
+
+	}
+
+	public MovieBuilderObject setYear(int year) {
 		this.year = year;
+		return this;
+
+	}
+
+
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+
+	
+
+
+
+	public List<ActorEntity> getActors() {
+		return actors;
+	}
+
+	public MovieBuilderObject setActors(List<ActorEntity> actors) {
 		this.actors = actors;
+		return this;
 	}
 
+	public static MovieEntity buildEntity(MovieRequest movieIn) {
+		MovieEntity movie = new MovieEntity();
+		movie.setTitle(movieIn.getTitle());
+		movie.setGenre(movieIn.getGenre());
+		movie.setYear(movieIn.getYear());
+		movie.setActors(movieIn.getActors());
 
-	public MovieEntity getResultEntity() {
+		return movie;
 
-		MovieEntity generic = new MovieEntity();
-		generic.setTitle(title);
-		generic.setGenre(genre);
-		generic.setYear(year);
-		generic.setActors(actors);
-		
-
-		return generic;
 	}
 
-	
-	public MovieResponse getResultResponse() {
+	public static MovieResponse buildResponse(MovieEntity movieIn) {
+		MovieResponse movie = new MovieResponse();
+		movie.setTitle(movieIn.getTitle());
+		movie.setYear(movieIn.getYear());
+		movie.setId(movieIn.getId());
 
-		MovieResponse generic = new MovieResponse();
-		generic.setId(id);
-		generic.setTitle(title);
-		generic.setYear(year);
-		
+		return movie;
 
-		return generic;
-	}
-	
-	public MovieResponseFull getResultResponseFull() {
-
-		MovieResponseFull generic = new MovieResponseFull();
-		generic.setId(id);
-		generic.setTitle(title);
-		generic.setGenre(genre);
-		generic.setYear(year);
-		generic.setActors(actors);
-
-		return generic;
 	}
 
+	public static MovieResponseFull buildResponseFull(MovieEntity movieIn) {
+		MovieResponseFull movie = new MovieResponseFull();
+		movie.setTitle(movieIn.getTitle());
+		movie.setGenre(movieIn.getGenre());
+		movie.setYear(movieIn.getYear());
+		movie.setActors(movieIn.getActors());
+		movie.setId(movieIn.getId());
+
+		return movie;
+
+	}
 
 }

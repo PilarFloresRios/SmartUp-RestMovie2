@@ -3,11 +3,14 @@ package com.soprasteria.ws.rest.request;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.soprasteria.ws.rest.entity.ActorEntity;
 import com.soprasteria.ws.rest.request.movie.MovieRequest;
 
 public class MovieRequestTest {
@@ -19,7 +22,10 @@ public class MovieRequestTest {
 
 		movieRequest = new MovieRequest();
 
-		String actors[] = {"Actor2"};
+		ActorEntity actor = new ActorEntity();
+		List<ActorEntity> actors = new ArrayList<ActorEntity>();
+		
+		actors.add(actor);
 
 //		movieRequest.setIdMovie(1L);
 		movieRequest.setTitle("Titulo");

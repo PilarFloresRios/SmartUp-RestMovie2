@@ -1,11 +1,14 @@
 package com.soprasteria.ws.rest.response.movie;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
+import com.soprasteria.ws.rest.entity.ActorEntity;
 
 public class MovieResponseFull extends MovieResponse {
 
 	private String genre;
-	private String actors[];
+	private List<ActorEntity> actors;
 
 	public MovieResponseFull() {
 		super();
@@ -22,11 +25,11 @@ public class MovieResponseFull extends MovieResponse {
 
 	
 
-	public String[] getActors() {
+	public List<ActorEntity> getActors() {
 		return actors;
 	}
 
-	public void setActors(String[] actors) {
+	public void setActors(List<ActorEntity> actors) {
 		this.actors = actors;
 	}
 
@@ -42,10 +45,23 @@ public class MovieResponseFull extends MovieResponse {
 		builder.append(", genre=");
 		builder.append(genre);
 		builder.append(", actors=");
-		builder.append(Arrays.toString(actors));
+		builder.append(actors);
 		builder.append("]");
 		return builder.toString();
 	}
+
+
+	
+
+
+
+
+	
+	
+
+
+	
+	
 
 
 	

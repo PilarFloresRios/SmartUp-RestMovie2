@@ -6,7 +6,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
-import com.soprasteria.ws.rest.builder.MovieBuilder;
+import com.soprasteria.ws.rest.builder.concrete.MovieBuilderObject;
 
 @SpringBootApplication
 public class RestMoviesApplication {
@@ -22,12 +22,7 @@ public class RestMoviesApplication {
         return validatorFactoryBean;
     }
     
-    
-    @Bean
-    public MovieBuilder movieBuilder() {
-    	MovieBuilder movieBuilder = new MovieBuilder();
-        return movieBuilder;
-    }
+
     /*
      * CONSULTA: Lo correcto seria crear un validador bean dentro del parquete bean?
      */

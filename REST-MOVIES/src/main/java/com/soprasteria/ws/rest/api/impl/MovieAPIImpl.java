@@ -31,46 +31,46 @@ public class MovieAPIImpl implements MovieAPI {
 	}
 
 	@Override
-	@RequestMapping(value = "/movie/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/movies/{id}", method = RequestMethod.GET)
 	public MovieResponseFull getById(@PathVariable Long id) {
 
 		return movieService.getMovieId(id);
 	}
 
 	@Override
-	@RequestMapping(value = "/movie/title/{title}", method = RequestMethod.GET)
+	@RequestMapping(value = "/movies/title/{title}", method = RequestMethod.GET)
 	public MovieResponseFull getMovieByTitle(@PathVariable String title) {
 
 		return movieService.getMovieByTitle(title);
 	}
 	
 	@Override
-	@RequestMapping(value = "/movie/genre/{genre}", method = RequestMethod.GET)
+	@RequestMapping(value = "/movies/genre/{genre}", method = RequestMethod.GET)
 	public MovieResponseFull getMovieByGenre(@PathVariable String genre) {
 
 		return movieService.getMovieByTitle(genre);
 	}
 
 	@Override
-	@RequestMapping(value = "/movie", method = RequestMethod.GET)
+	@RequestMapping(value = "/movies", method = RequestMethod.GET)
 	public List<MovieResponse> getMovieList() throws ListIsEmptyException {
 
 		return movieService.getMovieList();
 	}
 
-	@RequestMapping(value = "/movie", method = RequestMethod.POST)
+	@RequestMapping(value = "/movies", method = RequestMethod.POST)
 	public MovieResponseFull save(@Valid @RequestBody MovieRequest movieRequest) throws MovieExistsException {
 
 		return movieService.save(movieRequest);
 	}
 	
-	@RequestMapping(value = "/movie/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/movies/{id}", method = RequestMethod.PUT)
 	public MovieResponseFull update(@Valid @RequestBody MovieRequest movieRequest, @PathVariable Long id) {
 
 		return movieService.update(movieRequest, id);
 	}
 
-	@RequestMapping(value = "/movie/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/movies/{id}", method = RequestMethod.DELETE)
 	public StringBuffer delete(@PathVariable Long id) {
 		// TODO Auto-generated method stub
 		return movieService.delete(id);

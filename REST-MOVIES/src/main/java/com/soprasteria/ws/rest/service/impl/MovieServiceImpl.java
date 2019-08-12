@@ -11,7 +11,7 @@ import com.soprasteria.ws.rest.exception.OrderNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.soprasteria.ws.rest.builder.MovieBuilder;
+import com.soprasteria.ws.rest.builder.concrete.MovieBuilderObject;
 import com.soprasteria.ws.rest.dao.MovieDAO;
 import com.soprasteria.ws.rest.entity.MovieEntity;
 import com.soprasteria.ws.rest.request.movie.MovieRequest;
@@ -31,13 +31,12 @@ public class MovieServiceImpl implements MovieService {
 
 	MovieDAO dao;
 
-	MovieBuilder builder;
 
 	@Autowired
-	public MovieServiceImpl(MovieDAO dao, MovieBuilder builder) {
+	public MovieServiceImpl(MovieDAO dao) {
 		super();
 		this.dao = dao;
-		this.builder = builder;
+//		this.builder = builder;
 	}
 
 	// @Query("select m from MOVIE p where m.idMovie = 1") // MIRAR A VER COMO SE
@@ -57,7 +56,7 @@ public class MovieServiceImpl implements MovieService {
 
 			MovieEntity movieEntity = dao.findById(id).get();
 
-			MovieResponseFull movieResponse = builder.toMovieResponseFull(movieEntity);
+			MovieResponseFull movieResponse = MovieBuilderObject.buildResponseFull(movieEntity);
 
 			return movieResponse;
 
@@ -77,8 +76,8 @@ public class MovieServiceImpl implements MovieService {
 		if (dao.findMovieDTOByTitle(title).isPresent()) {
 
 			MovieEntity movieEntity = dao.findMovieDTOByTitle(title).get();
-//			MovieResponseFull movieResponse = movieEntity.toMovieResponseFull();
-			MovieResponseFull movieResponse = builder.toMovieResponseFull(movieEntity);
+
+			MovieResponseFull movieResponse = MovieBuilderObject.buildResponseFull(movieEntity);
 
 			return movieResponse;
 
@@ -103,10 +102,10 @@ public class MovieServiceImpl implements MovieService {
 			throw new MovieExistsException();
 		} else {
 
-//			MovieEntity movieEntity = movie.toMovieEntity();
-			MovieEntity movieEntity = builder.toMovieEntity(movie);
+			MovieEntity movieEntity = MovieBuilderObject.buildEntity(movie);
 			MovieEntity movieSave = dao.saveAndFlush(movieEntity);
-			MovieResponseFull movieResponse = builder.toMovieResponseFull(movieSave);
+
+			MovieResponseFull movieResponse = MovieBuilderObject.buildResponseFull(movieSave);
 			return movieResponse;
 		}
 	}
@@ -132,7 +131,8 @@ public class MovieServiceImpl implements MovieService {
 			for (int i = 0; i < movieEntityList.size(); i++) {
 
 				MovieEntity movieEntity = movieEntityList.get(i);
-				MovieResponse movieResponse = builder.toMovieResponse(movieEntity);
+
+				MovieResponse movieResponse = MovieBuilderObject.buildResponse(movieEntity);
 				movieResponseList.add(movieResponse);
 
 			}
@@ -146,7 +146,8 @@ public class MovieServiceImpl implements MovieService {
 		if (dao.findMovieDTOByGenre(genre).isPresent()) {
 
 			MovieEntity movieEntity = dao.findMovieDTOByGenre(genre).get();
-			MovieResponseFull movieResponse = builder.toMovieResponseFull(movieEntity);
+
+			MovieResponseFull movieResponse = MovieBuilderObject.buildResponseFull(movieEntity);
 
 			return movieResponse;
 
@@ -183,8 +184,9 @@ public class MovieServiceImpl implements MovieService {
 
 			/* falta actualizar y añadir actores */
 
-			dao.saveAndFlush(movieToUpdate);
-			MovieResponseFull movieResponse = builder.toMovieResponseFull(movieToUpdate);
+			MovieEntity movieEntity = dao.saveAndFlush(movieToUpdate);
+
+			MovieResponseFull movieResponse = MovieBuilderObject.buildResponseFull(movieEntity);
 
 			return movieResponse;
 		} else {

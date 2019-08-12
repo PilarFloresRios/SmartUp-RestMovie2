@@ -1,13 +1,14 @@
 package com.soprasteria.ws.rest.request.movie;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.soprasteria.ws.rest.annotation.Year;
-import com.soprasteria.ws.rest.builder.concrete.MovieBuilderObject;
-import com.soprasteria.ws.rest.entity.MovieEntity;
+import com.soprasteria.ws.rest.entity.ActorEntity;
 
 public class MovieRequest {
 
@@ -17,7 +18,7 @@ public class MovieRequest {
 	private String genre;
 	@Year
 	private int year;
-	private String actors[] = null;
+	private List<ActorEntity> actors;
 
 	public MovieRequest() {
 	}
@@ -48,13 +49,11 @@ public class MovieRequest {
 
 
 
-
-
-	public String[] getActors() {
+	public List<ActorEntity> getActors() {
 		return actors;
 	}
 
-	public void setActors(String[] actors) {
+	public void setActors(List<ActorEntity> actors) {
 		this.actors = actors;
 	}
 
@@ -68,19 +67,17 @@ public class MovieRequest {
 		builder.append(", year=");
 		builder.append(year);
 		builder.append(", actors=");
-		builder.append(Arrays.toString(actors));
+		builder.append(actors);
 		builder.append("]");
 		return builder.toString();
 	}
 
-//	public MovieEntity toMovieEntity() {
-//		MovieEntityBuilder builder = new MovieEntityBuilder();
-//
-//		builder.setTitle(title);
-//		builder.setGenre(genre);
-//		builder.setYear(year);
-//		builder.setActors(actors);
-//
-//		return builder.getResult();
-//	}
+
+
+
+
+
+
+	
+	
 }
